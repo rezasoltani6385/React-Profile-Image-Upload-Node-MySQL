@@ -28,7 +28,7 @@ function Login (){
         .then((response) =>{
             if (response.data.length && response.data[0].password === password) {
                 if (userChaptcha === captcha) {
-                    navigate('/dashboard', { state: { userId: response.data[0].id } })
+                    navigate('/profile', { state: { userId: response.data[0].id } })
                 }
                 else{
                     document.getElementById('err').innerHTML ='Sorry, the characters you entered do not match the image. Please try again.'
