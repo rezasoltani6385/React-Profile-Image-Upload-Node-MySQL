@@ -4,7 +4,7 @@ import Login from './Page/Login';
 import Register from './Page/Register';
 import PersonalInfo from './Page/PersonalInfo';
 import Profile from './Page/Profile';
-import UploadAvatar from './Dashboard/UploadAvatar';
+import UploadAvatar from './Page/UploadAvatar';
 
 function App() {
   return (
