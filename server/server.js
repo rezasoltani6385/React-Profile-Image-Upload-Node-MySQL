@@ -6,7 +6,7 @@ const fs = require('fs');
 
 
 const app = express();
-const port = 5000;
+const port = 6000;
 
 
 // Set maximum file size limit to 50MB
@@ -16,9 +16,10 @@ app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
+
+
 
 const mysql = require('mysql2');
 
@@ -26,8 +27,8 @@ const mysql = require('mysql2');
 const db = mysql.createConnection({
   host: 'localhost',
   user: 'root',
-  password: '',
-  database: 'test',
+  password: 'password',
+  database: 'tara',
 });
 
 // Serve static files from the uploads subfolder
@@ -36,6 +37,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 // Define routes here
 app.get('/users', (req, res) => {
   const userName = req.query.userName
+
   db.query('SELECT * FROM users WHERE username = ?', [userName],
   (err, result) => {
     if (err) {
@@ -64,6 +66,7 @@ app.post("/users", (req, res) => {
 
 app.get('/personal_info', (req, res) => {
   const userId = req.query.user_id
+  
   db.query('SELECT * FROM personal_info WHERE user_id = ?', [userId],
   (err, result) => {
     if (err) {
