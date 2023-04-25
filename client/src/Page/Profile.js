@@ -1,64 +1,43 @@
 import axios from 'axios'
 import React, { useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCamera } from '@fortawesome/free-solid-svg-icons';
 import {Modal, ModalBody} from 'react-bootstrap'
-import FileUpload from './FileUpload';
+import UploadAvatar from './UploadAvatar';
 
 import { Base_URL, Profile_URL } from '../Components/BaseURL'
 
-function Profile(props) {
-    const userId = props.userId
+function Profile() {
+  const location = useLocation();
+
+  const userId = location.state.userId
+
+    // const userId = props.userId
     const [firstName, setFirstName] = useState()
     const [lastName, setLastName] = useState()
     const [birthDate, setBirthDate] = useState()
     const [mobile, setMobile] = useState()
     const [city, setCity] = useState()
     const [address, setAddress] = useState()
-    const [profilePic, setProfilePic] = useState()
+    const [profilePic, setProfilePic] = useState('avatar.png')
     const [uploadModal, setUploadModal] = useState(false)
 
-
-    console.log(userId)
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
 
 
     axios.get(`${Base_URL}/personal_info?user_id=${userId}`).then((response)=>{
         // console.log(response.data)
         setFirstName(response.data[0].first_name)
         setLastName(response.data[0].last_name)
-        setBirthDate(response.data[0].birth_date)
+        setBirthDate(new Date(response.data[0].birth_date).toLocaleDateString(undefined, options))
         setMobile(response.data[0].mobile)
         setCity(response.data[0].city)
         setAddress(response.data[0].address)
-        setProfilePic(response.data[0].profile_pic)
+        if (response.data[0].profile_pic){
+          setProfilePic(response.data[0].profile_pic)
+        }
     })
-
-    // const uploadImage = async (imageFile) => {
-    //     // imageFile.preventDefault();
-        
-    //     const formData = new FormData();
-    //     formData.append('profileImage', imageFile);
-    //     try {
-    //         const response = await axios.post(`${Base_URL}/profile-picture`, formData, {
-    //             headers: {
-    //                 'Content-Type': 'multipart/form-data'
-    //             }
-    //         });
-    //         return console.log(response);
-    //     } catch (err) {
-    //         return console.log(err);
-    //     }
-    //   };
-  // if (uploadModal) {
-  //   return(
-  //     <Modal>
-  //       <ModalBody>
-  //         <FileUpload/>
-  //       </ModalBody>
-  //     </Modal>
-
-  //   )
-  // }  
 
 
   return (
@@ -75,10 +54,6 @@ function Profile(props) {
                 />
             </div>
             <div className='d-flex'>
-            {/* <input 
-                type="file" 
-                onChange={(event) => uploadImage(event.target.files[0])} 
-                /> */}
                 <button 
                     // type='file'
                     className='btn border justify-content-right'
@@ -86,7 +61,6 @@ function Profile(props) {
                     onClick={(evt)=>{
                       evt.preventDefault()
                       setUploadModal(!uploadModal)}}
-                    // onClick={()=>console.log('clicked')}
                 >
                     Upload Profile Photo
                     <FontAwesomeIcon icon={faCamera} style={{marginLeft: '3px'}}/>
@@ -96,7 +70,7 @@ function Profile(props) {
             <div>
               <Modal show={uploadModal} onHide ={()=>setUploadModal(false)}>
                 <ModalBody>
-                  <FileUpload userId = {userId}/>
+                  <UploadAvatar userId = {userId} setUploadModal={setUploadModal}/>
                 </ModalBody>
               </Modal>
             </div>
