@@ -6,7 +6,7 @@ const fs = require('fs');
 
 
 const app = express();
-const port = 6000;
+const port = 5000;
 
 
 // Set maximum file size limit to 50MB
@@ -66,7 +66,7 @@ app.post("/users", (req, res) => {
 
 app.get('/personal_info', (req, res) => {
   const userId = req.query.user_id
-  
+
   db.query('SELECT * FROM personal_info WHERE user_id = ?', [userId],
   (err, result) => {
     if (err) {
@@ -114,12 +114,12 @@ app.post("/upload", (req, res) => {
       res.status(500).json({ message: 'Error saving profile photo' });
     } else {
       db.query(
-        "UPDATE personal_info SET profile_pic = ? WHERE user_id = ?", [profile_pic, user_id],
+        "UPDATE personal_info SET profile_pic = ? WHERE user_id = ?", [fileName, userId],
         (err, result) => {
           if (err) {
             console.log(err);
           } else {
-            res.send(result);
+            // res.send(result);
             res.send({ message: 'Profile photo saved successfully' });
           }
         }
