@@ -4,8 +4,7 @@ import { useLocation } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCamera } from '@fortawesome/free-solid-svg-icons';
 import {Modal, ModalBody} from 'react-bootstrap'
-import UploadAvatar from './UploadAvatar';
-
+import UploadAvatar from '../Components/UploadAvatar';
 import { Base_URL, Profile_URL } from '../Components/BaseURL'
 
 function Profile() {
@@ -27,7 +26,6 @@ function Profile() {
 
 
     axios.get(`${Base_URL}/personal_info?user_id=${userId}`).then((response)=>{
-        // console.log(response.data)
         setFirstName(response.data[0].first_name)
         setLastName(response.data[0].last_name)
         setBirthDate(new Date(response.data[0].birth_date).toLocaleDateString(undefined, options))
