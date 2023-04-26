@@ -4,7 +4,6 @@ import Login from './Page/Login';
 import Register from './Page/Register';
 import PersonalInfo from './Page/PersonalInfo';
 import Profile from './Page/Profile';
-import UploadAvatar from './Page/UploadAvatar';
 
 function App() {
   return (
@@ -15,7 +14,6 @@ function App() {
           <Route path='/register' element={<Register />}/>
           <Route path='/personalinfo' element={<PersonalInfo />}/>
           <Route path='/profile' element={<Profile />}/>
-          <Route path='/avatar' element={<UploadAvatar />}/>
         </Routes>
       </Router>
     </div>
