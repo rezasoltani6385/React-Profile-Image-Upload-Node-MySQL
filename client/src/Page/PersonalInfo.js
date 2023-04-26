@@ -43,7 +43,7 @@ function PersonalInfo(props) {
           })
           .then((response)=>{
             console.log(response)
-            navigate('/home')
+            navigate('/profile', { state: { userId: userId } })
           })
           .catch((error)=>console.log(error))
         })
