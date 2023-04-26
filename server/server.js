@@ -86,10 +86,10 @@ app.post("/personal_info", (req, res) => {
   const mobile = req.body.mobile
   const city = req.body.city
   const address = req.body.address
-  const profile_pic = '/ProfilePics/avatar.jpg'
+  const profile_pic = null
   
   db.query(
-    "INSERT INTO personal_info (user_id, first_name, last_name, birth_date, mobile, city, address) VALUES (?,?,?,?,?,?,?,?)", 
+    "INSERT INTO personal_info (user_id, first_name, last_name, birth_date, mobile, city, address, profile_pic) VALUES (?,?,?,?,?,?,?,?)", 
     [userId, firstName, lastName, birthDate, mobile, city, address, profile_pic], (err, result) => {
       if (err) {
         console.log(err);
