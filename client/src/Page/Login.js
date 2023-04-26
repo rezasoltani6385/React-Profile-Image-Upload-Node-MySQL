@@ -22,8 +22,6 @@ function Login (){
 
     const LoginHandler = (evt) => {
         evt.preventDefault()
-        // setUserName(evt.target.username)
-        // console.log(userName, password)
         axios.get(`${Base_URL}/users?userName=${userName}`)
         .then((response) =>{
             if (response.data.length && response.data[0].password === password) {
